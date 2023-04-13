@@ -1,0 +1,79 @@
+import random
+
+word_list = ["aardvark", "baleia", "camelo", "doninha", "elefante",
+             "flamingo", "galinha", "hiena", "iguana", "jararaca",
+             "kiwi", "lince", "morsa", "narval", "ovelha", "papagaio",
+             "quati", "rinoceronte", "suricate", "tartaruga", "urso",
+             "vagalume", "wallaby", "ximango", "yak", "zebra"]
+
+chosen_word = random.choice(word_list)
+display = ["_" for _ in range(len(chosen_word))]
+lives = 6
+stages = ['''
+  +---+
+  |   |
+      |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+      |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+  |   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|   |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+      |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ /    |
+      |
+=========''', '''
+  +---+
+  |   |
+  O   |
+ /|\  |
+ / \  |
+      |
+========= ''']
+
+while True:
+    print(stages[lives])
+    print(" ".join(display))
+    guess = input("Guess a letter: ").lower()
+    if guess in chosen_word:
+        for i in range(len(chosen_word)):
+            if chosen_word[i] == guess:
+                display[i] = guess
+        if not "_" in display:
+            print("You win!")
+            break
+    else:
+        lives -= 1
+        if lives == 0:
+            print(stages[lives])
+            print(f"You Lose! The word is {chosen_word}.")
+            break
